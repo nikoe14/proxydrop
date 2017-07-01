@@ -32,7 +32,8 @@ def hello():
 #@app.route('/')
 def status(): 
 #    if valid_ip(): 
-    commandaction = subprocess.Popen(['mkdir', '-p', '/home/nico/hola'], stdout=subprocess.PIPE)
+    target=request.form['target']
+    commandaction = subprocess.Popen(['iptables', '-A', 'OUTPUT', '-m', 'statistic', '--mode', 'random', '--probability', '0.5', '-j', 'DROP', '-d', target], stdout=subprocess.PIPE)
     output = commandaction.communicate()[0]
     print output
     
