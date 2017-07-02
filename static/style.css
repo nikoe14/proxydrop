@@ -61,14 +61,21 @@ p.footer{
 }
 
 #container{
-    margin: 10px;
     border: 1px solid #D0D0D0;
     -webkit-box-shadow: 0 0 8px #D0D0D0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+#ad {
+    width: 32px;
 }
 
 /* Form Styles */
 form label{
-    display: block;
     margin-bottom: 5px;
 }
 form input[type=text]{

@@ -1,17 +1,18 @@
 <html>
     <head>
-        <title>Handle POST requests with Flask</title>
+        <title>Dropping traffic</title>
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <div id="container">
+        <div id="container" class="centered">
             <div class="title">
-                <h1>POST request with Flask</h1>
+                <h1>Dropping traffic</h1>
             </div>
             <div id="content">
                 <form method="post" action="{{ url_for('status') }}">
-                  <label for="dropavarage">Drop packets average:</label>
-                  <input type="text" name="dropavarage" />
+                  <label for="dropaverage">Average Drop: 1 to 99</label>
+                  <input id="ad" type="text" name="dropaverage" />
+                  <label for="dropaverage">% ----></label>
                   <label for="target">Target:</label>
                   <input type="text" name="target" /><br />
                   <input type="submit" />
