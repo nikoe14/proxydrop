@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for
 import subprocess
 
 app = Flask(__name__)
-ip_whitelist = ['172.16.0.251', '127.0.0.1'] 
+ip_whitelist = ['127.0.0.1']
 
 def white_list(): 
 	client = request.remote_addr 
@@ -32,12 +32,6 @@ def validate_dropaverage(a):
 @app.route('/')
 def form():
     return render_template('form_submit.html')
-
-@app.route('/hello/', methods=['POST'])
-def hello():
-  dropaverage=request.form['dropaverage']
-  target=request.form['target']
-  return render_template('form_action.html', dropaverage=dropaverage, target=target)
 
 @app.route('/status/', methods=['POST']) 
 def status(): 
