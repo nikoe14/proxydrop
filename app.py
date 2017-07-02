@@ -51,18 +51,16 @@ def newrule():
 
 @app.route('/show/', methods=['POST']) 
 def show(): 
-#    if validate_dropaverage(dropaverage):
-#        if validate_ip(target) and white_list(): 
-            try: 
-                com = subprocess.Popen(['iptables', '-L', 'OUTPUT', '--line-numbers'], stdout=subprocess.PIPE)
-                output = b''.join(com.stdout).decode('utf-8')
-            except subprocess.CalledProcessError as e: 
-                return "An error occurred while trying to fetch task status updates."  
-            return render_template('form_show.html', iptables=output)
-#        else:
-#            return render_template('form_error.html', error='the IP')
+#    if validate_ip(target) and white_list(): 
+        try: 
+            com = subprocess.Popen(['iptables', '-L', 'OUTPUT', '--line-numbers'], stdout=subprocess.PIPE)
+            output = b''.join(com.stdout).decode('utf-8')
+        except subprocess.CalledProcessError as e: 
+            return "An error occurred while trying to fetch task status updates."  
+        return render_template('form_show.html', iptables=output)
 #    else:
-#        return render_template('form_error.html', error='the drop average. Remember that it has to be a number between 1 and 99')
+#        return render_template('form_error.html', error='the IP')
+
 
 # Run the app :)
 if __name__ == '__main__':
