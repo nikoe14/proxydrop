@@ -9,12 +9,15 @@
                 <h1>Dropping traffic</h1>
             </div>
             <div id="content">
-                <form method="post" action="{{ url_for('status') }}">
+                <form method="post" action="{{ url_for('newrule') }}">
                   <label for="dropaverage">Average Drop: 1 to 99</label>
                   <input id="ad" type="text" name="dropaverage" />
                   <label for="dropaverage">% ----></label>
                   <label for="target">Target:</label>
                   <input type="text" name="target" /><br />
+                  <input type="submit" />
+                </form>
+                <form method="post" action="{{ url_for('show') }}">
                   <input type="submit" />
                 </form>
             </div>
