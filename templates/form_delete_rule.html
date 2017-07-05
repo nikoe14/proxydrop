@@ -18,9 +18,12 @@
             </div>
             <div id="content">
                 {% if iptables %}
+                <form method="post" action="{{ url_for('delete_rule') }}">
                     {% for n in iptables %}
-                        <li>{{n}}</li>
+                        <input class="input" id={{loop.index}} type="radio" name="rule" value={{loop.index}}><label for={{loop.index}}> {{n}} </label> <br>
                     {% endfor %}
+                    <input id="button" type="submit" value="Delete"/>
+                <form>
                 {% else %}
                     <p> {{ msg }}</p>
                 {% endif %}
