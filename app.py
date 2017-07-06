@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for
 import subprocess
 
 app = Flask(__name__)
-ip_whitelist = ['127.0.0.1']
+ip_whitelist = ['127.0.0.1','172.16.0.199']
 
 def white_list():
     client = request.remote_addr
@@ -69,21 +69,23 @@ def form():
 def newrule():
     target = request.form['target']
     dropaverage = request.form['dropaverage']
-    if (target != "") and (dropaverage != ""):
-        if validate_dropaverage(dropaverage):
-            if validate_ip(target) and white_list():
-                try:
-                    subprocess.Popen(['iptables', '-A', 'OUTPUT', '-m', 'statistic', '--mode', 'random', '--probability', '0.'+dropaverage, '-j', 'DROP', '-d', target], stdout=subprocess.PIPE)
-                except subprocess.CalledProcessError as e:
-                    return "An error occurred while trying to add a new rule."
-                return render_template('form_success.html', msg="Success! droping " +dropaverage +"% of traffic to " +target)
+    if white_list():
+        if (target != "") and (dropaverage != ""):
+            if validate_dropaverage(dropaverage):
+                if validate_ip(target):
+                    try:
+                        subprocess.Popen(['iptables', '-A', 'OUTPUT', '-m', 'statistic', '--mode', 'random', '--probability', '0.'+dropaverage, '-j', 'DROP', '-d', target], stdout=subprocess.PIPE)
+                    except subprocess.CalledProcessError as e:
+                        return "An error occurred while trying to add a new rule."
+                    return render_template('form_success.html', msg="Success! droping " +dropaverage +"% of traffic to " +target)
+                else:
+                    return render_template('form_error.html', error='Please, check the IP')
             else:
-                return render_template('form_error.html', error='the IP')
+                return render_template('form_error.html', error='Please, check the drop average. Remember that it has to be a number between 1 and 99')
         else:
-            return render_template('form_error.html', error='the drop average. Remember that it has to be a number between 1 and 99')
+            return render_template('form_error.html', error='Please, check the IP and drop avarage. Remember that fields can not be empty')
     else:
-        return render_template('form_error.html', error='IP and drop avarage. Remember that fields can not be empty')
-
+        return render_template('form_error.html', error='You do not have access.')
 @app.route('/show/', methods=['GET'])
 def show():
     data = rules()
