@@ -2,7 +2,16 @@ from flask import Flask, render_template, request, url_for
 import subprocess
 
 app = Flask(__name__)
-ip_whitelist = ['127.0.0.1','172.16.0.199']
+
+
+def load_whitelist():
+    with open("file.txt", "r") as ins:
+        whitelist = []
+        for line in ins:
+            whitelist.append(line)
+    return whitelist
+
+ip_whitelist = load_whitelist()
 
 def white_list():
     client = request.remote_addr
