@@ -20,7 +20,7 @@
         validate: "visudo -cf %s"
      become: yes
 
-  - name: Clone repo
+   - name: Clone repo
      become: yes
      git:
         repo: https://github.com/nikoe14/proxydrop.git
