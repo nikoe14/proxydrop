@@ -27,7 +27,7 @@
         update_cache: yes
   
    - pip:
-      name: bottle
+      name: flask
 
    - name: Install Git
      become: yes

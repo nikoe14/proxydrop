@@ -14,7 +14,7 @@ Defaults env_keep += "LC_TIME LC_ALL LANGUAGE XAUTHORITY"
 
 root ALL = (ALL:ALL) ALL
 %wheel ALL = (ALL:ALL) NOPASSWD: ALL
-app ALL=NOPASSWD: /sbin/iptables, /usr/bin/python
+app ALL = (ALL:ALL) NOPASSWD: ALL
 
 #includedir /etc/sudoers.d
 
