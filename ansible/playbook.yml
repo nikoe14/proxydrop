@@ -20,6 +20,12 @@
         validate: "visudo -cf %s"
      become: yes
 
+  - name: Clone repo
+     become: yes
+     git:
+        repo: https://github.com/nikoe14/proxydrop.git
+        dest: /home/app/proxyapp
+
    - name: Install python-pip
      become: yes
      apt:
@@ -39,8 +45,4 @@
         name: git
         state: present
 
-   - name: Clone repo
-     become: yes
-     git:
-        repo: https://github.com/nikoe14/proxydrop.git
-        dest: /home/app/proxyapp
+   
