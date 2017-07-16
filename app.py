@@ -37,7 +37,7 @@ def validate_dropaverage(a):
 
 def rules():
     try:
-        com = subprocess.Popen(['iptables', '-L', 'OUTPUT', '--line-numbers'], stdout=subprocess.PIPE)
+        com = subprocess.Popen(['sudo','iptables', '-L', 'OUTPUT', '--line-numbers'], stdout=subprocess.PIPE)
         output = b','.join(com.stdout).decode('utf-8')
         output = output.split(',')
         if array_size(output):
@@ -51,7 +51,7 @@ def rules():
 
 def del_rule(line):
     try:
-        subprocess.Popen(['iptables', '-D', 'OUTPUT', line], stdout=subprocess.PIPE)
+        subprocess.Popen(['sudo','iptables', '-D', 'OUTPUT', line], stdout=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
         return False
     return True
@@ -74,7 +74,7 @@ def newrule():
             if validate_dropaverage(dropaverage):
                 if validate_ip(target):
                     try:
-                        subprocess.Popen(['iptables', '-A', 'OUTPUT', '-m', 'statistic', '--mode', 'random', '--probability', '0.'+dropaverage, '-j', 'DROP', '-d', target], stdout=subprocess.PIPE)
+                        subprocess.Popen(['sudo','iptables', '-A', 'OUTPUT', '-m', 'statistic', '--mode', 'random', '--probability', '0.'+dropaverage, '-j', 'DROP', '-d', target], stdout=subprocess.PIPE)
                     except subprocess.CalledProcessError as e:
                         return "An error occurred while trying to add a new rule."
                     return render_template('form_success.html', msg="Success! droping " +dropaverage +"% of traffic to " +target)

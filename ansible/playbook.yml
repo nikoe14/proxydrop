@@ -1,0 +1,42 @@
+---
+- hosts: all
+  vars:
+   - docroot: /var/www/host.com/public
+  tasks:
+
+   - name: Add User 
+     become: yes
+     user:
+        name: app
+        comment: "app"
+        
+   - name: update sudo configuration
+     template:
+        src: sudoers.j2
+        dest: /etc/sudoers
+        owner: root
+        group: root
+        mode: 0o0440
+        validate: "visudo -cf %s"
+     become: yes
+
+   - name: Install python-pip
+     become: yes
+     apt:
+        name: python-pip
+        update_cache: yes
+  
+   - pip:
+      name: bottle
+
+   - name: Install Git
+     become: yes
+     apt:
+        name: git
+        state: present
+
+   - name: Clone repo
+     become: yes
+     git:
+        repo: https://github.com/nikoe14/proxydrop.git
+        dest: /home/app/proxyapp
