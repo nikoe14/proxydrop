@@ -36,8 +36,8 @@
      pip: name=flask
    - name: start flask
      shell: "flask run"
-       environment:
-         FLASK_APP: /home/app/proxyapp/app.py
+     environment:
+        FLASK_APP: /home/app/proxyapp/app.py
 
    - name: Install Git
      become: yes
